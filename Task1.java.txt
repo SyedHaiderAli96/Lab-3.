@@ -1,0 +1,109 @@
+import java.util.Scanner;
+
+class Student {
+    private String name;
+    private int totalMarks;
+    private int obtainedMarks;
+
+    // Constructor
+    public Student(String name, int totalMarks, int obtainedMarks) {
+        this.name = name;
+        this.totalMarks = totalMarks;
+        this.obtainedMarks = obtainedMarks;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getTotalMarks() {
+        return totalMarks;
+    }
+
+    public int getObtainedMarks() {
+        return obtainedMarks;
+    }
+}
+
+class MarkSheet {
+    // Method to calculate percentage
+    public double calculatePercentage(int obtainedMarks, int totalMarks) {
+        return ((double) obtainedMarks / totalMarks) * 100;
+    }
+
+    // Method to determine grade based on percentage
+    public String determineGrade(double percentage) {
+        if (percentage >= 90) {
+            return "A+";
+        } else if (percentage >= 80) {
+            return "A";
+        } else if (percentage >= 70) {
+            return "B";
+        } else if (percentage >= 60) {
+            return "C";
+        } else if (percentage >= 50) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    // Method to calculate GPA based on grade
+    public double calculateGPA(String grade) {
+        switch (grade) {
+            case "A+":
+                return 4.0;
+            case "A":
+                return 4.0;
+            case "B":
+                return 3.0;
+            case "C":
+                return 2.0;
+            case "D":
+                return 1.0;
+            default:
+                return 0.0;
+        }
+    }
+
+    // Method to display the mark sheet
+    public void displayMarkSheet(Student student) {
+        double percentage = calculatePercentage(student.getObtainedMarks(), student.getTotalMarks());
+        String grade = determineGrade(percentage);
+        double gpa = calculateGPA(grade);
+
+        System.out.println("\n--- Mark Sheet ---");
+        System.out.println("Student Name: " + student.getName());
+        System.out.println("Total Marks: " + student.getTotalMarks());
+        System.out.println("Obtained Marks: " + student.getObtainedMarks());
+        System.out.printf("Percentage: %.2f%%\n", percentage);
+        System.out.println("Grade: " + grade);
+        System.out.printf("GPA: %.2f\n", gpa);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Taking input from the user
+        System.out.print("Enter Student Name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter Total Marks: ");
+        int totalMarks = scanner.nextInt();
+
+        System.out.print("Enter Obtained Marks: ");
+        int obtainedMarks = scanner.nextInt();
+
+        // Create a student object
+        Student student = new Student(name, totalMarks, obtainedMarks);
+        MarkSheet markSheet = new MarkSheet();
+        
+        // Display the mark sheet
+        markSheet.displayMarkSheet(student);
+
+        scanner.close();
+    }
+}
